@@ -1,4 +1,5 @@
 # Standard Library
+from itertools import product
 from math import sin
 
 # Third Party Library
@@ -30,6 +31,21 @@ def cal_term_2(x1, x2):
         return (x1 ** 2 + x2 ** 2) ** 0.1
 
     return sin(50 * inner_term(x1, x2)) ** 2 + 1
+
+
+def brute_force():
+    range_list = [x / 10000 for x in range(10001)]
+    candidates = list(product(range_list, repeat=2))
+    max_value = ((), 0)
+    min_value = ((), 0)
+    for c in candidates:
+        result = obj_func(*c)
+        if result > max_value[1]:
+            max_value = (c, result)
+        if result < min_value[1]:
+            max_value = (c, result)
+
+    return max_value, min_value
 
 
 def main():
