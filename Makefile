@@ -19,6 +19,9 @@ pre-commit: dev ## Init development environment with pre-commit
 commit: ## Commitizen commit
 	pipenv run cz commit
 
+commit-retry: ## Commitizen commit retry from previous message
+	pipenv run cz commit --retry
+
 lint: pylint flake8 ## Lint bundle
 
 flake8: ## Lint .py using flake8
