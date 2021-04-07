@@ -17,7 +17,7 @@ def test_brute_force():
     end = time()
 
     with open('./performance/brute_force.csv', 'a') as wf:
-        wf.write(f'{datetime.now().isoformat()},{end-start}')
+        wf.write(f'{datetime.now().isoformat()},{end-start}\n')
 
     assert isinstance(max_v, tuple)
     assert isinstance(min_v, tuple)
