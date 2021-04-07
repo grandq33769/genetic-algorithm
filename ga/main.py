@@ -1,4 +1,5 @@
 # Standard Library
+import sys
 from itertools import product
 from math import sin
 
@@ -36,8 +37,8 @@ def cal_term_2(x1, x2):
 def brute_force():
     range_list = [x / 10000 for x in range(10001)]
     candidates = list(product(range_list, repeat=2))
-    max_value = ((), 0)
-    min_value = ((), 0)
+    max_value = ((), sys.maxsize * -1)
+    min_value = ((), sys.maxsize)
     for c in candidates:
         result = obj_func(*c)
         if result > max_value[1]:
