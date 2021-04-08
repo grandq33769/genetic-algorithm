@@ -44,7 +44,7 @@ def brute_force():
         if result > max_value[1]:
             max_value = (c, result)
         elif result < min_value[1]:
-            max_value = (c, result)
+            min_value = (c, result)
 
     return max_value, min_value
 
