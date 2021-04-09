@@ -7,6 +7,9 @@ from operator import attrgetter
 # Third Party Library
 from loguru import logger as log
 
+# Local Module
+from ga.config import GAconfig, GAsetting
+
 
 def obj_func(x1, x2):
     log.debug(f'{x1=} {x2=}')
@@ -50,10 +53,8 @@ def brute_force():
     return max_value, min_value
 
 
-def genetic_algorithm(config):
-    pop_size, crossover_rate, mutation_rate = attrgetter(
-        "pop_size", "crossover_rate", "mutation_rate"
-    )(config)
+def genetic_algorithm(config: GAconfig):
+    setting: GAsetting = config.setting
     initialize, evaluation, select = attrgetter(
         "initialize", "evaluation", "select"
     )(config)
@@ -63,20 +64,20 @@ def genetic_algorithm(config):
 
     generation = 0
     fitnesses = []
-    populations = initialize(pop_size)
-    fitness = evaluation(populations.get(generation))
+    populations = initialize(setting)
+    fitness = evaluation(populations.get(generation), setting)
     fitnesses.append(fitness)
-    while not is_terminated(generation, populations, fitnesses, config):
+    while not is_terminated(generation, populations, fitnesses, setting):
         generation += 1
         # Next Generation
-        population = select(populations.get(generation - 1))
+        population = select(populations.get(generation - 1), setting)
         # Alter
-        population = crossover(population, crossover_rate)
-        population = mutation(population, mutation_rate)
+        population = crossover(population, setting)
+        population = mutation(population, setting)
         # Add new generation
         populations.append(population)
         # Evaluation
-        fitness = evaluation(population.get(generation))
+        fitness = evaluation(population.get(generation), setting)
         fitnesses.append(fitness)
     return populations, fitnesses
 
