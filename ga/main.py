@@ -2,6 +2,7 @@
 import sys
 from itertools import product
 from math import sin
+from operator import attrgetter
 
 # Third Party Library
 from loguru import logger as log
@@ -47,6 +48,37 @@ def brute_force():
             max_value = (c, result)
 
     return max_value, min_value
+
+
+def genetic_algorithm(config):
+    pop_size, crossover_rate, mutation_rate = attrgetter(
+        "pop_size", "crossover_rate", "mutation_rate"
+    )(config)
+    initialize, evaluation, select = attrgetter(
+        "initialize", "evaluation", "select"
+    )(config)
+    is_terminated, crossover, mutation = attrgetter(
+        "is_terminated", "crossover", "mutation"
+    )(config)
+
+    generation = 0
+    fitnesses = []
+    populations = initialize(pop_size)
+    fitness = evaluation(populations.get(generation))
+    fitnesses.append(fitness)
+    while not is_terminated(generation, populations, fitnesses, config):
+        generation += 1
+        # Next Generation
+        population = select(populations.get(generation - 1))
+        # Alter
+        population = crossover(population, crossover_rate)
+        population = mutation(population, mutation_rate)
+        # Add new generation
+        populations.add(population)
+        # Evaluation
+        fitness = evaluation(population.get(generation))
+        fitnesses.append(fitness)
+    return populations, fitnesses
 
 
 def main():
