@@ -44,8 +44,8 @@ def brute_force():
         result = obj_func(*c)
         if result > max_value[1]:
             max_value = (c, result)
-        if result < min_value[1]:
-            max_value = (c, result)
+        elif result < min_value[1]:
+            min_value = (c, result)
 
     return max_value, min_value
 
