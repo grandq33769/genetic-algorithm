@@ -23,4 +23,4 @@ def test_brute_force():
     assert isinstance(min_v, tuple)
     # max (0.6887, 0.9866)
     assert max_v == ((0.6887, 0.9866), 2.1912616758946326)
-    assert min_v == ((1, 1), 3)
+    assert min_v == ((0.0001, 0.0002), 0.015155696886441018)

@@ -29,3 +29,7 @@ def test_cal_term_2():
 
 def test_max():
     assert obj_func(0.6887, 0.9866) == 2.1912616758946326
+
+
+def test_min():
+    assert obj_func(0.0001, 0.0002) == 0.015155696886441018
