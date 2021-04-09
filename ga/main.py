@@ -74,7 +74,7 @@ def genetic_algorithm(config):
         population = crossover(population, crossover_rate)
         population = mutation(population, mutation_rate)
         # Add new generation
-        populations.add(population)
+        populations.append(population)
         # Evaluation
         fitness = evaluation(population.get(generation))
         fitnesses.append(fitness)
