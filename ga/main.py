@@ -3,6 +3,7 @@ import sys
 from itertools import product
 from math import sin
 from operator import attrgetter
+from typing import List, Tuple
 
 # Third Party Library
 from loguru import logger as log
@@ -62,15 +63,15 @@ def genetic_algorithm(config: GAconfig):
         "is_terminated", "crossover", "mutation"
     )(config)
 
-    generation = 0
-    fitnesses = []
-    populations = initialize(setting)
-    fitness = evaluation(populations.get(generation), setting)
+    generation: int = 0
+    fitnesses: List[Tuple] = []
+    populations: List[Tuple] = initialize(setting)
+    fitness = evaluation(populations[generation], setting)
     fitnesses.append(fitness)
     while not is_terminated(generation, populations, fitnesses, setting):
         generation += 1
         # Next Generation
-        population = select(populations.get(generation - 1), setting)
+        population = select(populations[generation - 1], setting)
         # Alter
         population = crossover(population, setting)
         population = mutation(population, setting)
@@ -80,6 +81,14 @@ def genetic_algorithm(config: GAconfig):
         fitness = evaluation(population.get(generation), setting)
         fitnesses.append(fitness)
     return populations, fitnesses
+
+
+def binary_initialization(setting: GAsetting) -> List[Tuple]:
+    pop_size, operator = attrgetter("pop_size", "gene_operator")(setting)
+    populations: List[Tuple] = []
+    population = tuple(operator.generate() for _ in range(pop_size))
+    populations.append(population)
+    return populations
 
 
 def main():
