@@ -83,7 +83,7 @@ def genetic_algorithm(config: GAconfig):
     return populations, fitnesses
 
 
-def binary_initialization(setting: GAsetting) -> List[Tuple]:
+def basic_init(setting: GAsetting) -> List[Tuple]:
     pop_size, operator = attrgetter("pop_size", "gene_operator")(setting)
     populations: List[Tuple] = []
     population = tuple(operator.generate() for _ in range(pop_size))
