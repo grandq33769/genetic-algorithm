@@ -7,6 +7,7 @@ from typing import List, Tuple
 
 # Third Party Library
 from loguru import logger as log
+from numpy import mean
 
 # Local Module
 from ga.config import GAconfig, GAsetting
@@ -66,8 +67,12 @@ def genetic_algorithm(config: GAconfig):
     generation: int = 0
     fitnesses: List[Tuple] = []
     populations: List[Tuple] = initialize(setting)
-    fitness = evaluation(populations[generation], setting)
+    log.info(f'Populations Initialization: {populations}')
+    fitness: Tuple = evaluation(populations[generation], setting)
+    log.info(f'Fitness of First Generation: {fitness}')
+    log.info(f'Average Fitness of First Generation: {mean(fitness)}')
     fitnesses.append(fitness)
+
     while not is_terminated(generation, populations, fitnesses, setting):
         generation += 1
         # Next Generation
@@ -89,6 +94,12 @@ def basic_init(setting: GAsetting) -> List[Tuple]:
     population = tuple(operator.generate() for _ in range(pop_size))
     populations.append(population)
     return populations
+
+
+def basic_evaluation(population: Tuple, setting: GAsetting) -> Tuple:
+    operator = attrgetter("gene_operator")(setting)
+    fitness = tuple(obj_func(*operator.decode(i)) for i in population)
+    return fitness
 
 
 def main():
