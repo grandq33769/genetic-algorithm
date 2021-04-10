@@ -1,8 +1,8 @@
 # Local Module
-from ga.representation.binary import BinaryGeneGenerator, BinaryRepresentation
+from ga.representation.binary import BinaryGeneOperator, BinaryRepresentation
 
 REPRS = [BinaryRepresentation(0, 1, 4), BinaryRepresentation(0, 1, 4)]
-SUBJECT = BinaryGeneGenerator(REPRS)
+SUBJECT = BinaryGeneOperator(REPRS)
 
 
 def test_generate():
