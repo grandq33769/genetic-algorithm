@@ -1,14 +1,6 @@
 # Standard Library
-from dataclasses import dataclass
-
-
-@dataclass
-class GeneGenerator:
-    def generate(self):
-        pass
-
-    def decode(self, gene):
-        pass
+from dataclasses import dataclass, field
+from typing import Sequence
 
 
 @dataclass
@@ -26,3 +18,18 @@ class Representation:
     def __post_init__(self):
         if self.min_value > self.max_value:
             raise ValueError('min_value must be smaller than max_value')
+
+
+@dataclass
+class GeneOperator:
+    representations: Sequence[Representation]
+    repre_len: int = field(init=False)
+
+    def __post_init__(self):
+        self.repre_len = len(self.representations)
+
+    def generate(self):
+        pass
+
+    def decode(self, gene):
+        pass

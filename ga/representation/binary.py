@@ -2,12 +2,12 @@
 from dataclasses import dataclass, field
 from math import ceil, log
 from random import randint
-from typing import List, Union
+from typing import List, Sequence, Union
 
 # Third Party Library
 from loguru import logger
 
-from .base import GeneGenerator, Representation
+from .base import GeneOperator, Representation
 
 
 @dataclass
@@ -41,10 +41,8 @@ class BinaryRepresentation(Representation):
         return str(bin_string)[2:].zfill(self.num_of_bits)
 
 
-class BinaryGeneGenerator(GeneGenerator):
-    def __init__(self, representations: List[BinaryRepresentation]):
-        self.representations = representations
-        self.repre_len = len(representations)
+class BinaryGeneOperator(GeneOperator):
+    representations: Sequence[BinaryRepresentation]
 
     @property
     def length(self):
