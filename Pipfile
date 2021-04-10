@@ -19,6 +19,7 @@ isort = ">5"
 
 [packages]
 loguru = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.8"
