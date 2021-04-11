@@ -76,7 +76,7 @@ def genetic_algorithm(config: GAconfig):
     while not is_terminated(generation, populations, fitnesses, setting):
         generation += 1
         # Next Generation
-        population = select(populations[generation - 1], setting)
+        population = select(populations[generation - 1], fitness, setting)
         # Alter
         population = crossover(population, setting)
         population = mutation(population, setting)
