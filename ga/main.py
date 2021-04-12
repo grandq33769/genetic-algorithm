@@ -14,7 +14,6 @@ from ga.config import GAconfig, GAsetting
 
 
 def obj_func(x1, x2):
-    log.debug(f'{x1=} {x2=}')
     assert isinstance(x1, (int, float))
     assert isinstance(x2, (int, float))
     assert 0 <= x1 <= 1
@@ -24,8 +23,6 @@ def obj_func(x1, x2):
     x2 = round(x2, 4)
 
     result = cal_term_1(x1, x2) * cal_term_2(x1, x2)
-
-    log.debug(f'Objective {result=}')
     return result
 
 
@@ -72,6 +69,7 @@ def genetic_algorithm(config: GAconfig):
     log.info(f'Fitness of First Generation: {fitness}')
     log.info(f'Average Fitness of First Generation: {mean(fitness)}')
     fitnesses.append(fitness)
+    log.info('Evolution Start:')
 
     while not is_terminated(generation, populations, fitnesses, setting):
         generation += 1
@@ -87,6 +85,9 @@ def genetic_algorithm(config: GAconfig):
         # Evaluation
         fitness = evaluation(population, setting)
         fitnesses.append(fitness)
+        log.info((f'{generation=} {mean(fitness)=}'))
+        log.debug((f'{population=} {fitness=}'))
+    log.info('Evolution End')
     return populations, fitnesses
 
 
@@ -116,19 +117,11 @@ def is_terminated_by_generation(
         ' '.join(
             [
                 f'{generation=}',
-                f'{populations=}',
-                f'{fitnesses=}',
+                f'{len(populations)=}',
+                f'{len(fitnesses)=}',
                 f'{setting=}',
                 f'{terminated_gen=}',
             ]
         )
     )
     return generation > terminated_gen
-
-
-def main():
-    obj_func(3, 4)
-
-
-if __name__ == "__main__":
-    main()
