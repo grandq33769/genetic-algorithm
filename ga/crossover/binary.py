@@ -1,10 +1,11 @@
 # Standard Library
 from operator import attrgetter
-from random import randint, random
+from random import randint
 from typing import List
 
 # Local Module
 from ga.config import GAsetting
+from ga.utils import separate_pop_by_chance
 
 
 def pairwise(iterable):
@@ -21,18 +22,9 @@ def one_bit_crossover(population: List, setting: GAsetting):
     crossover_rate, operator = attrgetter('crossover_rate', 'gene_operator')(
         setting
     )
-    new_population: List = []
-    candidates: List = []
-    for i in population:
-        crossover_throw = random()
-        if crossover_throw <= crossover_rate:
-            # Add individual to candidates pool
-            # if the throw smaller than the mutation rate
-            candidates.append(i)
-        else:
-            # Add individual to new population if individual not crossover
-            new_population.append(i)
-
+    candidates, new_population = separate_pop_by_chance(
+        population, crossover_rate
+    )
     # Crossover must be even candidates, remove the remain candidate and
     # Add to new population
     if len_candidates := len(candidates) % 2 != 0:
