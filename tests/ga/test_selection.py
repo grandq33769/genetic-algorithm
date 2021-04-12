@@ -12,12 +12,12 @@ def test_float_to_range_idx():
 
 def test_roulette(ga_setting):
     population = (3, 8, 9, 20, 1, 5)
-    fitness = (0.3, 0, 0.1, 0.15, 0.9, 1)
+    fitness = (0.3, 0, -0.1, 0.15, 0.9, 1)
 
     subjects = [roulette(population, fitness, ga_setting) for _ in range(100)]
 
     type_result = [isinstance(p, list) for p in subjects]
-    result = [8 not in p for p in subjects]
+    result = [9 not in p for p in subjects]
 
     assert all(type_result)
     assert all(result)
