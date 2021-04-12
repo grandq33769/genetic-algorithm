@@ -76,14 +76,16 @@ def genetic_algorithm(config: GAconfig):
     while not is_terminated(generation, populations, fitnesses, setting):
         generation += 1
         # Next Generation
-        population = select(populations[generation - 1], fitness, setting)
+        population: List = select(
+            populations[generation - 1], fitness, setting
+        )
         # Alter
         population = crossover(population, setting)
         population = mutation(population, setting)
         # Add new generation
-        populations.append(population)
+        populations.append(tuple(population))
         # Evaluation
-        fitness = evaluation(population.get(generation), setting)
+        fitness = evaluation(population, setting)
         fitnesses.append(fitness)
     return populations, fitnesses
 
