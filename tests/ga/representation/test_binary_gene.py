@@ -49,3 +49,13 @@ def test_mutation():
 
     subject = SUBJECT.mutation(gene, 2)
     assert subject == '0010'
+
+
+def test_valid_by_gene():
+    gene = '1' * SUBJECT.length
+    valid = SUBJECT.valid_gene(gene)
+    assert valid == False
+
+    gene = '0' * SUBJECT.length
+    valid = SUBJECT.valid_gene(gene)
+    assert valid == True
