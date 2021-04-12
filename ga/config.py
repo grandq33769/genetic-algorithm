@@ -22,6 +22,7 @@ class GAsetting:
 @dataclass
 class HillClimbingSetting(GAsetting):
     target: tuple = tuple()
+    target_fitness: float = 0.0
 
 
 @dataclass
