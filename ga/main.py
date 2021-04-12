@@ -81,7 +81,7 @@ def genetic_algorithm(config: GAconfig):
         )
         # Alter
         population = crossover(population, setting)
-        population = mutation(population, setting)
+        population, _ = mutation(population, setting)
         # Add new generation
         populations.append(tuple(population))
         # Evaluation
