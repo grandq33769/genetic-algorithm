@@ -1,3 +1,6 @@
+# Third Party Library
+from numpy import mean
+
 # Local Module
 from ga.selection.roulette import float_to_range_idx, roulette
 
@@ -18,7 +21,7 @@ def test_roulette(ga_setting, file_logger):
     file_logger.debug(subjects)
 
     type_result = [isinstance(p, list) for p in subjects]
-    result = [9 not in p for p in subjects]
+    result = [isinstance(mean(p), float) for p in subjects]
 
     assert all(type_result)
     assert all(result)
