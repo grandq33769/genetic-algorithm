@@ -13,8 +13,9 @@ def test_basic_init(ga_setting):
     assert all((isinstance(i, str) for i in population))
 
 
-def test_init_by_neighbors(ga_setting):
-    subject = init_by_neighbors(ga_setting)
+def test_init_by_neighbors(hc_setting):
+    operator = hc_setting.gene_operator
+    subject = init_by_neighbors(hc_setting)
     assert isinstance(subject, list)
     assert len(subject) == 1
 
@@ -22,3 +23,5 @@ def test_init_by_neighbors(ga_setting):
     assert isinstance(population, tuple)
     assert len(population) == 100
     assert all((isinstance(i, str) for i in population))
+
+    assert len(hc_setting.target) == operator.length
