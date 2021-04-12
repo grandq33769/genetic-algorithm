@@ -33,3 +33,19 @@ def test_encode_wrong_len():
 def test_decode_wrong_len():
     phenotype = SUBJECT.decode('010')
     assert phenotype == ()
+
+
+def test_crossover():
+    first = '1011'
+    second = '1000'
+
+    first, second = SUBJECT.crossover(first, second, 3)
+    assert first == '1010'
+    assert second == '1001'
+
+
+def test_mutation():
+    gene = '0000'
+
+    subject = SUBJECT.mutation(gene, 2)
+    assert subject == '0010'
