@@ -33,3 +33,9 @@ class GeneOperator:
 
     def decode(self, gene):
         pass
+
+    def crossover(self, first, second, idx):
+        pass
+
+    def mutation(self, target, idx):
+        pass

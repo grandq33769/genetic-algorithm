@@ -84,3 +84,14 @@ class BinaryGeneOperator(GeneOperator):
             phenotype.append(r.decode(target))
 
         return tuple(phenotype)
+
+    def crossover(self, first: str, second: str, idx: int):
+
+        cross_first = ''.join([first[:idx], second[idx], first[idx + 1 :]])
+        cross_second = ''.join([second[:idx], first[idx], second[idx + 1 :]])
+        return cross_first, cross_second
+
+    def mutation(self, target: str, idx: int):
+        mutated_bit = '1' if target[idx] == '0' else '1'
+        mutated_target = target[:idx] + mutated_bit + target[idx + 1 :]
+        return mutated_target
