@@ -18,10 +18,14 @@ def float_to_range_idx(target: float, ranges: Tuple) -> int:
 
 def roulette(population: Tuple, fitness: Tuple, setting: GAsetting) -> List:
     new_population: List = []
+    # Pre-processing of fitness, shift all fitness value to positive
+    # Caution: The weakest individual always be abandoned
+    min_fitness = min(fitness)
+    processed_fitness = tuple(f - min_fitness for f in fitness)
 
     # Percentage of all individuals by fitness
-    sum_fitness: float = sum(fitness)
-    percentages: Tuple = tuple(f / sum_fitness for f in fitness)
+    sum_fitness: float = sum(processed_fitness)
+    percentages: Tuple = tuple(f / sum_fitness for f in processed_fitness)
 
     # Accumulate percentage to 1
     accumulated: Tuple = tuple(accumulate(percentages, lambda a, b: a + b))
