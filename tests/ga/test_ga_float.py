@@ -11,12 +11,12 @@ from ga.mutation.binary import one_bit_mutation
 from ga.selection.roulette import roulette
 
 
-def test_ga_normal(ga_setting, file_logger):
+def test_ga_binary(ga_float_setting, file_logger):
     is_terminated = lambda *args: is_terminated_by_generation(
         *args, terminated_gen=100
     )
     config = GAconfig(
-        ga_setting,
+        ga_float_setting,
         basic_init,
         basic_evaluation,
         roulette,
@@ -29,7 +29,9 @@ def test_ga_normal(ga_setting, file_logger):
     max_fitness = max(last_fitness)
     max_idx = last_fitness.index(max_fitness)
     strongest_individual = last_pop[max_idx]
-    strongest_phenotype = ga_setting.gene_operator.decode(strongest_individual)
+    strongest_phenotype = ga_float_setting.gene_operator.decode(
+        strongest_individual
+    )
     file_logger.info(
         ' '.join(
             [
