@@ -20,8 +20,11 @@ def one_bit_mutation(population: List, setting: GAsetting):
     )
     occurred: bool = bool(candidates)
     for candidate in candidates:
-        mutation_idx = randint(0, operator.length - 1)
-        mutated = operator.mutation(candidate, mutation_idx)
+        valid = False
+        while not valid:
+            mutation_idx = randint(0, operator.length - 1)
+            mutated = operator.mutation(candidate, mutation_idx)
+            valid = operator.valid_gene(mutated)
         log.debug(f'{candidate=}, {mutated=}, {mutation_idx=}')
         new_population.append(mutated)
     return new_population, occurred

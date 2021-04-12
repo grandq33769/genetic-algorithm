@@ -32,10 +32,16 @@ def one_bit_crossover(population: List, setting: GAsetting):
         new_population.append(candidates.pop(abandoned_idx))
 
     for first, second in pairwise(candidates):
-        crossover_idx = randint(0, operator.length - 1)
-        new_first, new_second = operator.crossover(
-            first, second, crossover_idx
-        )
+        valid_first, valid_second = False, False
+        while not all([valid_first, valid_second]):
+            crossover_idx = randint(0, operator.length - 1)
+            new_first, new_second = operator.crossover(
+                first, second, crossover_idx
+            )
+            valid_first, valid_second = (
+                operator.valid_gene(new_first),
+                operator.valid_gene(new_second),
+            )
         new_population.extend([new_first, new_second])
 
     return new_population

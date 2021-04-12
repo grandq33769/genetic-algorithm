@@ -85,6 +85,14 @@ class BinaryGeneOperator(GeneOperator):
 
         return tuple(phenotype)
 
+    def valid_gene(self, gene: str) -> bool:
+        phenotype = self.decode(gene)
+        valids = [
+            r.min_value <= p <= r.max_value
+            for p, r in zip(phenotype, self.representations)
+        ]
+        return all(valids)
+
     def crossover(self, first: str, second: str, idx: int):
 
         cross_first = ''.join([first[:idx], second[idx], first[idx + 1 :]])
