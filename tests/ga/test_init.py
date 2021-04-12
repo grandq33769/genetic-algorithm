@@ -1,5 +1,5 @@
 # Local Module
-from ga.main import basic_init
+from ga.initialization.basic import basic_init
 
 
 def test_basic_init(ga_setting):

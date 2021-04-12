@@ -1,9 +1,9 @@
 # Local Module
 from ga.config import GAconfig
 from ga.crossover.binary import one_bit_crossover
+from ga.initialization.basic import basic_init
 from ga.main import (
     basic_evaluation,
-    basic_init,
     genetic_algorithm,
     is_terminated_by_generation,
 )

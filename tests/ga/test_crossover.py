@@ -1,6 +1,6 @@
 # Local Module
 from ga.crossover.binary import one_bit_crossover
-from ga.main import basic_init
+from ga.initialization.basic import basic_init
 
 
 def test_one_bit_crossover(ga_setting, file_logger):

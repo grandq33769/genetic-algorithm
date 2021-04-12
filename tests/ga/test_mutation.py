@@ -1,5 +1,5 @@
 # Local Module
-from ga.main import basic_init
+from ga.initialization.basic import basic_init
 from ga.mutation.binary import one_bit_mutation
 
 
