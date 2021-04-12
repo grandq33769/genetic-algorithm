@@ -20,6 +20,11 @@ class GAsetting:
 
 
 @dataclass
+class HillClimbingSetting(GAsetting):
+    target: tuple = tuple()
+
+
+@dataclass
 class GAconfig:
     setting: GAsetting
     initialize: Callable
