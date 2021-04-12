@@ -2,8 +2,8 @@
 from loguru import logger as log
 
 # Local Module
+from ga.evaluation.basic import basic_evaluation
 from ga.initialization.basic import basic_init
-from ga.main import basic_evaluation
 
 
 def test_basic_evaluation(ga_setting, file_logger):

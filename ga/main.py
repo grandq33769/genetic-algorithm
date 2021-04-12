@@ -89,9 +89,3 @@ def genetic_algorithm(config: GAconfig):
         log.debug((f'{population=} {fitness=}'))
     log.info('Evolution End')
     return populations, fitnesses
-
-
-def basic_evaluation(population: Tuple, setting: GAsetting) -> Tuple:
-    operator = attrgetter("gene_operator")(setting)
-    fitness = tuple(obj_func(*operator.decode(i)) for i in population)
-    return fitness
