@@ -30,7 +30,7 @@ class FloatGeneOperator(GeneOperator):
         return len(self.representations)
 
     def generate(self) -> tuple:
-        gene = tuple(r.generate for r in self.representations)
+        gene = tuple(r.generate() for r in self.representations)
         return gene
 
     def decode(self, gene: tuple) -> tuple:
