@@ -95,25 +95,3 @@ def basic_evaluation(population: Tuple, setting: GAsetting) -> Tuple:
     operator = attrgetter("gene_operator")(setting)
     fitness = tuple(obj_func(*operator.decode(i)) for i in population)
     return fitness
-
-
-def is_terminated_by_generation(
-    generation: int,
-    populations: List[Tuple],
-    fitnesses: List[Tuple],
-    setting: GAsetting,
-    /,
-    terminated_gen: int,
-) -> bool:
-    log.debug(
-        ' '.join(
-            [
-                f'{generation=}',
-                f'{len(populations)=}',
-                f'{len(fitnesses)=}',
-                f'{setting=}',
-                f'{terminated_gen=}',
-            ]
-        )
-    )
-    return generation > terminated_gen

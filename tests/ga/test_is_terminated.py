@@ -1,5 +1,5 @@
 # Local Module
-from ga.main import is_terminated_by_generation
+from ga.termination.basic import is_terminated_by_generation
 
 
 def test_is_terminated_by_generation(ga_setting):

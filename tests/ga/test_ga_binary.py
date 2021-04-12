@@ -2,13 +2,10 @@
 from ga.config import GAconfig
 from ga.crossover.binary import one_bit_crossover
 from ga.initialization.basic import basic_init
-from ga.main import (
-    basic_evaluation,
-    genetic_algorithm,
-    is_terminated_by_generation,
-)
+from ga.main import basic_evaluation, genetic_algorithm
 from ga.mutation.binary import one_bit_mutation
 from ga.selection.roulette import roulette
+from ga.termination.basic import is_terminated_by_generation
 
 
 def test_ga_binary(ga_setting, file_logger):
