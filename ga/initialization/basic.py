@@ -4,7 +4,7 @@ from random import randint
 from typing import List, Tuple
 
 # Local Module
-from ga.config import GAsetting
+from ga.config import GAsetting, HillClimbingSetting
 
 
 def basic_init(setting: GAsetting) -> List[Tuple]:
@@ -15,11 +15,12 @@ def basic_init(setting: GAsetting) -> List[Tuple]:
     return populations
 
 
-def init_by_neighbors(setting: GAsetting) -> List[Tuple]:
+def init_by_neighbors(setting: HillClimbingSetting) -> List[Tuple]:
     pop_size, operator = attrgetter("pop_size", "gene_operator")(setting)
     populations: List[Tuple] = []
     population: List = []
     target = operator.generate()
+    setting.target = target
     while len(population) != pop_size:
         neighbor_idx = randint(0, operator.length - 1)
         neighbor = operator.mutation(target, neighbor_idx)
