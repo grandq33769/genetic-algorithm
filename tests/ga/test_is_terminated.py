@@ -42,8 +42,8 @@ def test_smaller_than_previous(hc_setting):
 
 def test_is_annealled(sa_setting):
     generation = 3
-    populations = [('010'), ('100'), ('000'), ('101')]
-    fitnesses = [(10), (10), (10), (10)]
+    populations = [('010',), ('100',), ('000',), ('101',)]
+    fitnesses = [(10,), (10,), (10,), (10,)]
     setting = sa_setting
     input_args = (generation, populations, fitnesses, setting)
 
