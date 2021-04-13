@@ -4,7 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-black = "==19.3b0"
+black = "==20.8b1"
 pylint = ">2.6.0"
 pre-commit = ">2.6.0"
 flake8 = ">3.7.9"
@@ -19,6 +19,9 @@ isort = ">5"
 
 [packages]
 loguru = "*"
+numpy = "*"
+plotly = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.8"

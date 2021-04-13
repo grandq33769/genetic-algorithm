@@ -59,6 +59,8 @@ simple-clean: ## Clean cache
 	rm -rf .hypothesis
 	rm -rf .pytest_cache
 	rm -rf .tox
+	rm -rf performance/test_*
+	rm -rf logs/test_*
 	rm -f report.xml
 	rm -f coverage.xml
 

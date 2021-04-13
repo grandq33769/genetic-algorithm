@@ -19,3 +19,9 @@ import_heading_firstparty="Local Module"
 import_heading_tests="Tests Module"
 include_trailing_comma="True"
 line_length=79
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "dependency: declare dependencies between pytest tests",
+]
