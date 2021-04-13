@@ -79,10 +79,14 @@ def write_metric(
     if fitness_filename == []:
         fitness_filename = ['0.csv']
 
-    max_name: str = max([max(pop_filename), max(fitness_filename)]).replace(
-        '.csv', ''
+    processed_pop_filename = [int(p.replace('.csv', '')) for p in pop_filename]
+    processed_fitness_filename = [
+        int(p.replace('.csv', '')) for p in fitness_filename
+    ]
+    max_value: int = max(
+        [max(processed_pop_filename), max(processed_fitness_filename)]
     )
-    now_idx = int(max_name) + 1
+    now_idx = max_value + 1
 
     with open(f'./performance/{func_name}/metric.csv', 'a') as wf:
         wf.write(','.join(metric))
