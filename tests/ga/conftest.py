@@ -7,7 +7,7 @@ from ga.representation.binary import BinaryGeneOperator, BinaryRepresentation
 from ga.representation.float import FloatGeneOperator, FloatRepresentation
 
 SETTING = GAsetting(
-    pop_size=10,
+    pop_size=100,
     crossover_rate=0.3,
     mutation_rate=0.01,
     gene_operator=BinaryGeneOperator(
@@ -16,7 +16,7 @@ SETTING = GAsetting(
 )
 
 FLOAT_SETTING = GAsetting(
-    pop_size=10,
+    pop_size=100,
     crossover_rate=0.3,
     mutation_rate=0.01,
     gene_operator=FloatGeneOperator(
@@ -25,7 +25,7 @@ FLOAT_SETTING = GAsetting(
 )
 
 HC_SETTING = HillClimbingSetting(
-    pop_size=10,
+    pop_size=100,
     crossover_rate=0.3,
     mutation_rate=0.01,
     gene_operator=BinaryGeneOperator(
@@ -34,18 +34,19 @@ HC_SETTING = HillClimbingSetting(
 )
 
 SA_SETTING = SAsetting(
-    pop_size=1,
+    pop_size=100,
     crossover_rate=0.3,
     mutation_rate=0.01,
     gene_operator=BinaryGeneOperator(
         [BinaryRepresentation(0, 1, 4), BinaryRepresentation(0, 1, 4)]
     ),
-    temperature=100,
+    temperature=100000,
+    annealling_rate=0.9,
 )
 
 
 FLOAT_HC_SETTING = HillClimbingSetting(
-    pop_size=10,
+    pop_size=100,
     crossover_rate=0.3,
     mutation_rate=0.01,
     gene_operator=FloatGeneOperator(
@@ -54,13 +55,14 @@ FLOAT_HC_SETTING = HillClimbingSetting(
 )
 
 FLOAT_SA_SETTING = SAsetting(
-    pop_size=1,
+    pop_size=100,
     crossover_rate=0.3,
     mutation_rate=0.01,
     gene_operator=FloatGeneOperator(
         [FloatRepresentation(0, 1, 4), FloatRepresentation(0, 1, 4)]
     ),
-    temperature=100,
+    temperature=100000,
+    annealling_rate=0.9,
 )
 
 

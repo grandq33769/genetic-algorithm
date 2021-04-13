@@ -11,12 +11,12 @@ from ga.termination.basic import smaller_than_previous
 from .performance_utils import ga_testing
 
 
-def test_hillclimbing_float_min(hc_setting, file_logger):
+def test_hillclimbing_float_min(hc_setting_float, file_logger):
     evaluation = lambda *args: hc_evaluation(
         *args, obj_func=lambda *x: -obj_func(*x)
     )
     config = HillClimbingConfig(
-        hc_setting,
+        hc_setting_float,
         init_by_neighbors,
         evaluation,
         select_neighbor_from_target,

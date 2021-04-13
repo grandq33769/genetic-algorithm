@@ -1,17 +1,22 @@
-from operator import attrgetter
-from loguru import logger as log
+# Standard Library
 from math import exp
-from typing import Tuple, Callable, List
+from operator import attrgetter
 from random import random
-from ga.config import SAsetting
-from ga.selection.neighbor import select_neighbor_from_target
-from ga.evaluation.basic import basic_evaluation
+from typing import Callable, List, Tuple
 
-def annealling(population: Tuple, fitness: Tuple, setting: SAsetting, obj_func: Callable) -> List:
+# Local Module
+from ga.config import SAsetting
+from ga.evaluation.basic import basic_evaluation
+from ga.selection.neighbor import select_neighbor_from_target
+
+
+def annealling(
+    population: Tuple, fitness: Tuple, setting: SAsetting, obj_func: Callable
+) -> List:
     new_population = select_neighbor_from_target(population, fitness, setting)
 
     operator, target = attrgetter("gene_operator", "target")(setting)
-    fitness = basic_evaluation(new_population, setting, obj_func)
+    fitness = basic_evaluation(tuple(new_population), setting, obj_func)
     fitness_value = max(fitness)
     target_fitness = obj_func(*operator.decode(target))
 
@@ -22,13 +27,10 @@ def annealling(population: Tuple, fitness: Tuple, setting: SAsetting, obj_func: 
         setting.count = 0
     else:
         throw = random()
-        if throw < exp(
-            (fitness_value - target_fitness) / setting.temperature
-        ):
+        if throw < exp((fitness_value - target_fitness) / setting.temperature):
             setting.target = new_population[target_idx]
             setting.count = 0
         else:
             setting.count += 1
 
     return [setting.target]
-

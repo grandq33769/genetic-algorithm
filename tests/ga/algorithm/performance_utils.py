@@ -31,7 +31,6 @@ def ga_testing(
     aggregated_metric: Tuple = (
         now,
         execution_sec,
-        strongest_individual,
         *strongest_phenotype,
         max_fitness,
     )
