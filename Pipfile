@@ -20,6 +20,8 @@ isort = ">5"
 [packages]
 loguru = "*"
 numpy = "*"
+plotly = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.8"
