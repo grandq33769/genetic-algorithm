@@ -9,7 +9,7 @@ def test_basic_init(ga_setting):
 
     population = subject[0]
     assert isinstance(population, tuple)
-    assert len(population) == 100
+    assert len(population) == ga_setting.pop_size
     assert all((isinstance(i, str) for i in population))
 
 

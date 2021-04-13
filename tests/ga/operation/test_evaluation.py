@@ -13,7 +13,7 @@ def test_basic_evaluation(ga_setting, file_logger):
     file_logger.debug(subject)
 
     assert isinstance(subject, tuple)
-    assert len(subject) == 100
+    assert len(subject) == ga_setting.pop_size
     assert all((isinstance(i, float) for i in subject))
 
 
