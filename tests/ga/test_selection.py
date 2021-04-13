@@ -1,7 +1,11 @@
+# Standard Library
+from operator import sub
+
 # Third Party Library
 from numpy import mean
 
 # Local Module
+from ga.selection.neighbor import select_neighbor_from_target
 from ga.selection.roulette import float_to_range_idx, roulette
 
 
@@ -25,3 +29,23 @@ def test_roulette(ga_setting, file_logger):
 
     assert all(type_result)
     assert all(result)
+
+
+def test_select_neighbor_from_target(hc_setting, file_logger):
+    hc_setting.target = '0000000000000100000000000010'
+    population = (
+        '0000000000000100001111111010',
+        '0000000111100100000000000010',
+        '0000000000101000000000000010',
+        '0000000000000100000000011110',
+        '0000000111000100000000000010',
+        '0000000001010100000000000010',
+    )
+    fitness = (0.3, 0, -0.1, 0.15, 0.9, 1)
+    subject = select_neighbor_from_target(population, fitness, hc_setting)
+    file_logger.info(f'{subject=}')
+
+    individual_type_check = [isinstance(p, str) for p in subject]
+
+    assert isinstance(subject, list)
+    assert all(individual_type_check)
