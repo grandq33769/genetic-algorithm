@@ -34,3 +34,8 @@ class GAconfig:
     is_terminated: Callable
     crossover: Callable
     mutation: Callable
+
+
+@dataclass
+class HillClimbingConfig(GAconfig):
+    setting: HillClimbingSetting
