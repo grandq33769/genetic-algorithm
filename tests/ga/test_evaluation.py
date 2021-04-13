@@ -21,7 +21,7 @@ def test_hc_evaluation(hc_setting):
     subject = basic_evaluation(population, hc_setting)
 
     assert isinstance(subject, tuple)
-    assert len(subject) == 100
+    assert len(subject) == hc_setting.pop_size
     assert all((isinstance(i, float) for i in subject))
 
     assert isinstance(hc_setting.target_fitness, float)

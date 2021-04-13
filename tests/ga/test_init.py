@@ -21,7 +21,7 @@ def test_init_by_neighbors(hc_setting):
 
     population = subject[0]
     assert isinstance(population, tuple)
-    assert len(population) == 100
+    assert len(population) == hc_setting.pop_size
     assert all((isinstance(i, str) for i in population))
 
     assert len(hc_setting.target) == operator.length
