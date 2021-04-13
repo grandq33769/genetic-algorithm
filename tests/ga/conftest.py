@@ -40,6 +40,7 @@ SA_SETTING = SAsetting(
     gene_operator=BinaryGeneOperator(
         [BinaryRepresentation(0, 1, 4), BinaryRepresentation(0, 1, 4)]
     ),
+    temperature=10000,
 )
 
 
