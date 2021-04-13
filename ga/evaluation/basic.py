@@ -26,27 +26,3 @@ def hc_evaluation(
     setting.target_fitness = obj_func(*operator.decode(target))
     fitness = basic_evaluation(population, setting, obj_func)
     return fitness
-
-
-def annealling(population: Tuple, setting: SAsetting, obj_func: Callable):
-    operator, target = attrgetter("gene_operator", "target")(setting)
-    # Caution: fitness will not corresponding to population
-    fitness = basic_evaluation(population, setting, obj_func)
-    fitness_value = mean(fitness)
-    setting.target_fitness = obj_func(*operator.decode(target))
-
-    rand_idx = randint(0, setting.pop_size - 1)
-    if fitness_value > setting.target_fitness:
-        setting.target = population[rand_idx]
-        setting.count = 0
-    else:
-        throw = random()
-        if throw < exp(
-            (fitness_value - setting.target_fitness) / setting.temperature
-        ):
-            setting.target = population[rand_idx]
-            setting.count = 0
-        else:
-            setting.count += 1
-
-    return fitness

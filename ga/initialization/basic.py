@@ -4,7 +4,7 @@ from random import randint
 from typing import List, Tuple
 
 # Local Module
-from ga.config import GAsetting, HillClimbingSetting
+from ga.config import GAsetting, HillClimbingSetting, SAsetting
 
 
 def basic_init(setting: GAsetting) -> List[Tuple]:
@@ -27,4 +27,13 @@ def init_by_neighbors(setting: HillClimbingSetting) -> List[Tuple]:
         if operator.valid_gene(neighbor):
             population.append(neighbor)
     populations.append(tuple(population))
+    return populations
+
+
+def annealling_init(setting: SAsetting) -> List[Tuple]:
+    operator = attrgetter("gene_operator")(setting)
+    populations: List[Tuple] = []
+    target = operator.generate()
+    setting.target = target
+    populations.append(tuple([target]))
     return populations
