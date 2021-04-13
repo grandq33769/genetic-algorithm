@@ -28,7 +28,9 @@ def test_ga_binary_min(ga_setting, file_logger):
         one_bit_mutation,
     )
 
-    populations, fitnesses = ga_testing(config, file_logger)
+    populations, fitnesses = ga_testing(
+        config, file_logger, test_ga_binary_min.__name__
+    )
 
     assert isinstance(populations, list)
     assert isinstance(fitnesses, list)

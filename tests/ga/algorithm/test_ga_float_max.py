@@ -11,7 +11,7 @@ from ga.termination.basic import is_terminated_by_generation
 from .performance_utils import ga_testing
 
 
-def test_ga_binary_max(ga_float_setting, file_logger):
+def test_ga_float_max(ga_float_setting, file_logger):
     is_terminated = lambda *args: is_terminated_by_generation(
         *args, terminated_gen=100
     )
@@ -27,7 +27,9 @@ def test_ga_binary_max(ga_float_setting, file_logger):
         one_bit_crossover,
         one_bit_mutation,
     )
-    populations, fitnesses = ga_testing(config, file_logger)
+    populations, fitnesses = ga_testing(
+        config, file_logger, test_ga_float_max.__name__
+    )
 
     assert isinstance(populations, list)
     assert isinstance(fitnesses, list)

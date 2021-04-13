@@ -11,7 +11,7 @@ from ga.termination.basic import smaller_than_previous
 from .performance_utils import ga_testing
 
 
-def test_ga_binary_min(hc_setting, file_logger):
+def test_hillclimbing_binary_min(hc_setting, file_logger):
     evaluation = lambda *args: hc_evaluation(
         *args, obj_func=lambda *x: -obj_func(*x)
     )
@@ -24,6 +24,8 @@ def test_ga_binary_min(hc_setting, file_logger):
         crossover_no_ops,
         mutation_no_ops,
     )
-    populations, fitnesses = ga_testing(config, file_logger)
+    populations, fitnesses = ga_testing(
+        config, file_logger, test_hillclimbing_binary_min.__name__
+    )
     assert isinstance(populations, list)
     assert isinstance(fitnesses, list)

@@ -11,7 +11,7 @@ from ga.termination.basic import is_annealled
 from .performance_utils import ga_testing
 
 
-def test_ga_binary_max(sa_setting, file_logger):
+def test_annealling_binary_max(sa_setting, file_logger):
     is_terminated = lambda *args: is_annealled(
         *args, terminated_gen=5000, duplicated_time=5
     )
@@ -28,7 +28,9 @@ def test_ga_binary_max(sa_setting, file_logger):
         mutation_no_ops,
     )
 
-    populations, fitnesses = ga_testing(config, file_logger)
+    populations, fitnesses = ga_testing(
+        config, file_logger, test_annealling_binary_max.__name__
+    )
     file_logger.info(
         ' '.join([f'{sa_setting.target=}', f'{sa_setting.target_fitness=}'])
     )
