@@ -26,6 +26,12 @@ class HillClimbingSetting(GAsetting):
 
 
 @dataclass
+class SAsetting(HillClimbingSetting):
+    temperature: float = 100000
+    annealling_rate: float = 0.99
+
+
+@dataclass
 class GAconfig:
     setting: GAsetting
     initialize: Callable
