@@ -100,6 +100,6 @@ class BinaryGeneOperator(GeneOperator):
         return cross_first, cross_second
 
     def mutation(self, target: str, idx: int):
-        mutated_bit = '1' if target[idx] == '0' else '1'
+        mutated_bit = '1' if target[idx] == '0' else '0'
         mutated_target = target[:idx] + mutated_bit + target[idx + 1 :]
         return mutated_target
