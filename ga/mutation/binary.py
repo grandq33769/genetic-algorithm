@@ -1,7 +1,7 @@
 # Standard Library
 from operator import attrgetter
 from random import randint
-from typing import List
+from typing import List, Tuple
 
 # Third Party Library
 from loguru import logger as log
@@ -28,3 +28,8 @@ def one_bit_mutation(population: List, setting: GAsetting):
         log.debug(f'{candidate=}, {mutated=}, {mutation_idx=}')
         new_population.append(mutated)
     return new_population, occurred
+
+
+def no_ops(population: List, setting: GAsetting) -> Tuple[List, bool]:
+    log.debug(f'Crossover No Operations : {setting.pop_size=}')
+    return population, False

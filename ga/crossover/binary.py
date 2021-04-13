@@ -3,6 +3,9 @@ from operator import attrgetter
 from random import randint
 from typing import List
 
+# Third Party Library
+from loguru import logger as log
+
 # Local Module
 from ga.config import GAsetting
 from ga.utils import separate_pop_by_chance
@@ -45,3 +48,8 @@ def one_bit_crossover(population: List, setting: GAsetting):
         new_population.extend([new_first, new_second])
 
     return new_population
+
+
+def no_ops(population: List, setting: GAsetting) -> List:
+    log.debug(f'Mutation No Operations : {setting.pop_size=}')
+    return population
