@@ -3,9 +3,6 @@ from dataclasses import dataclass
 from random import uniform
 from typing import List, Sequence, Union
 
-# Third Party Library
-from loguru import logger
-
 from .base import GeneOperator, Representation
 
 
@@ -25,34 +22,18 @@ class FloatRepresentation(Representation):
 class FloatGeneOperator(GeneOperator):
     representations: Sequence[FloatRepresentation]
 
-    @property
-    def length(self):
-        return len(self.representations)
-
     def generate(self) -> tuple:
         gene = tuple(r.generate() for r in self.representations)
         return gene
 
     def decode(self, gene: tuple) -> tuple:
         phenotype: List[Union[int, float]] = list()
-        if gene_len := len(gene) != self.length:
-            logger.warning(
-                f'The length of gene is "{gene_len}" but the generator '
-                f'only can decode the gene with "{self.length}" long.'
-            )
+        if not self.is_valid_length(gene):
             return tuple(phenotype)
         for r, g in zip(self.representations, gene):
             phenotype.append(r.decode(g))
 
         return tuple(phenotype)
-
-    def valid_gene(self, gene: tuple) -> bool:
-        phenotype = self.decode(gene)
-        valids = [
-            r.min_value <= p <= r.max_value
-            for p, r in zip(phenotype, self.representations)
-        ]
-        return all(valids)
 
     def crossover(self, first: tuple, second: tuple, idx: int):
         cross_first = first[:idx] + tuple([second[idx]]) + first[idx + 1 :]
