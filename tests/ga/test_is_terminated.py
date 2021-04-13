@@ -1,7 +1,8 @@
 # Local Module
 from ga.termination.basic import (
-    is_strongest_diff_from_previous,
+    is_annealled,
     is_terminated_by_generation,
+    smaller_than_previous,
 )
 
 
@@ -23,7 +24,7 @@ def test_is_terminated_by_generation(ga_setting):
     assert test_fail_subject(*input_args) == False
 
 
-def test_is_strongest_diff_from_previous(hc_setting):
+def test_smaller_than_previous(hc_setting):
     generation = 1
     populations = [('010', '001'), ('110', '100')]
     fitnesses_success = [(20, 10), (30, 5)]
@@ -33,7 +34,36 @@ def test_is_strongest_diff_from_previous(hc_setting):
     success_args = (generation, populations, fitnesses_success, hc_setting)
     fail_args = (generation, populations, fitnesses_fail, hc_setting)
 
-    assert is_strongest_diff_from_previous(*success_args) == True
+    assert smaller_than_previous(*success_args) == False
     assert hc_setting.target_fitness == 30
-    assert is_strongest_diff_from_previous(*fail_args) == False
+    assert smaller_than_previous(*fail_args) == True
     assert hc_setting.target_fitness == 30
+
+
+def test_is_annealled(sa_setting):
+    generation = 3
+    populations = [('010'), ('100'), ('000'), ('101')]
+    fitnesses = [(10), (10), (10), (10)]
+    setting = sa_setting
+    input_args = (generation, populations, fitnesses, setting)
+
+    test_exceeded = lambda *args: is_annealled(
+        *args, terminated_gen=1, duplicated_time=10
+    )
+
+    test_not_exceeded = lambda *args: is_annealled(
+        *args, terminated_gen=5, duplicated_time=10
+    )
+
+    test_annealled = lambda *args: is_annealled(
+        *args, terminated_gen=5, duplicated_time=3
+    )
+
+    test_both = lambda *args: is_annealled(
+        *args, terminated_gen=1, duplicated_time=3
+    )
+
+    assert test_exceeded(*input_args) == True
+    assert test_not_exceeded(*input_args) == False
+    assert test_annealled(*input_args) == True
+    assert test_both(*input_args) == True
