@@ -1,11 +1,12 @@
 # Standard Library
+from collections import Counter
 from typing import List, Tuple
 
 # Third Party Library
 from loguru import logger as log
 
 # Local Module
-from ga.config import GAsetting, HillClimbingSetting
+from ga.config import GAsetting, HillClimbingSetting, SAsetting
 
 
 def is_terminated_by_generation(
@@ -30,16 +31,12 @@ def is_terminated_by_generation(
     return generation > terminated_gen
 
 
-def is_strongest_diff_from_previous(
+def smaller_than_previous(
     generation: int,
     populations: List[Tuple],
     fitnesses: List[Tuple],
     setting: HillClimbingSetting,
 ):
-    # Can not compare if there is only one generation
-    if generation < 1:
-        return False
-
     new_pop = populations[-1]
     new_fit = fitnesses[-1]
     new_max_value = max(new_fit)
@@ -52,6 +49,7 @@ def is_strongest_diff_from_previous(
     log.debug(
         ' '.join(
             [
+                f'{generation}',
                 f'{operator=}',
                 f'{new_strongest=}',
                 f'{new_max_value=}',
@@ -60,9 +58,38 @@ def is_strongest_diff_from_previous(
             ]
         )
     )
-    replacement: bool = new_max_value > target_value
-    if replacement:
+    larger_than: bool = new_max_value > target_value
+    if larger_than:
         setting.target = new_strongest
         setting.target_fitness = new_max_value
 
-    return replacement
+    return not larger_than
+
+
+def is_annealled(
+    generation: int,
+    populations: List[Tuple],
+    fitnesses: List[Tuple],
+    setting: SAsetting,
+    /,
+    terminated_gen: int,
+    duplicated_time: int,
+):
+    setting.temperature = setting.temperature * setting.annealling_rate
+
+    fitness, time = Counter(fitnesses).most_common(1)[0]
+    log.debug(
+        ' '.join(
+            [
+                f'{generation=}',
+                f'{len(populations)=}',
+                f'{len(fitness)=}',
+                f'{terminated_gen=}',
+                f'{duplicated_time=}',
+            ]
+        )
+    )
+
+    annealled: bool = time > duplicated_time
+    exceeded: bool = generation > terminated_gen
+    return annealled or exceeded
