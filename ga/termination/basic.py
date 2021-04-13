@@ -1,5 +1,7 @@
 # Standard Library
 from collections import Counter
+from math import exp
+from random import random
 from typing import List, Tuple
 
 # Third Party Library
@@ -42,7 +44,6 @@ def smaller_than_previous(
     new_max_value = max(new_fit)
     new_strongest = new_pop[new_fit.index(new_max_value)]
 
-    operator = setting.gene_operator
     target = setting.target
     target_value = setting.target_fitness
 
@@ -50,7 +51,6 @@ def smaller_than_previous(
         ' '.join(
             [
                 f'{generation}',
-                f'{operator=}',
                 f'{new_strongest=}',
                 f'{new_max_value=}',
                 f'{target=}',
@@ -76,6 +76,20 @@ def is_annealled(
     duplicated_time: int,
 ):
     setting.temperature = setting.temperature * setting.annealling_rate
+
+    new_pop = populations[-1][0]
+    new_fit = fitnesses[-1][0]
+
+    target_value = setting.target_fitness
+
+    if new_fit > target_value:
+        setting.target = new_pop
+        setting.target_fitness = new_fit
+    else:
+        throw = random()
+        if throw < exp((new_fit - target_value) / setting.temperature):
+            setting.target = new_pop
+            setting.target_fitness = new_fit
 
     fitness, time = Counter(fitnesses).most_common(1)[0]
     log.debug(
