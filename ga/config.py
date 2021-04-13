@@ -27,8 +27,9 @@ class HillClimbingSetting(GAsetting):
 
 @dataclass
 class SAsetting(HillClimbingSetting):
-    temperature: float = 100
-    annealling_rate: float = 0.9
+    temperature: float = 1000
+    annealling_rate: float = 0.99
+    count: int = 4
 
 
 @dataclass

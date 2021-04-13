@@ -1,7 +1,5 @@
 # Standard Library
-from collections import Counter
-from math import exp
-from random import random
+from operator import attrgetter
 from typing import List, Tuple
 
 # Third Party Library
@@ -77,33 +75,25 @@ def is_annealled(
 ):
     setting.temperature = setting.temperature * setting.annealling_rate
 
-    new_pop = populations[-1][0]
-    new_fit = fitnesses[-1][0]
+    target, target_fitness, count = attrgetter(
+        'target', 'target_fitness', 'count'
+    )(setting)
 
-    target_value = setting.target_fitness
-
-    if new_fit > target_value:
-        setting.target = new_pop
-        setting.target_fitness = new_fit
-    else:
-        throw = random()
-        if throw < exp((new_fit - target_value) / setting.temperature):
-            setting.target = new_pop
-            setting.target_fitness = new_fit
-
-    fitness, time = Counter(fitnesses).most_common(1)[0]
     log.debug(
         ' '.join(
             [
                 f'{generation=}',
                 f'{len(populations)=}',
-                f'{len(fitness)=}',
+                f'{len(fitnesses)=}',
                 f'{terminated_gen=}',
                 f'{duplicated_time=}',
+                f'{target=}',
+                f'{target_fitness=}',
+                f'{count=}',
             ]
         )
     )
 
-    annealled: bool = time > duplicated_time
+    annealled: bool = count > duplicated_time
     exceeded: bool = generation > terminated_gen
     return annealled or exceeded
