@@ -1,5 +1,6 @@
 # Standard Library
 from itertools import accumulate
+from math import exp
 from random import random
 from typing import List, Tuple
 
@@ -18,16 +19,9 @@ def float_to_range_idx(target: float, ranges: Tuple) -> int:
 
 def roulette(population: Tuple, fitness: Tuple, setting: GAsetting) -> List:
     new_population: List = []
-    # Pre-processing of fitness, shift all fitness value to positive
+    # Pre-processing of fitness, exponential all fitness value
     # Normalization of fitness
-    processed_fitness = fitness
-    min_fitness = min(fitness)
-    max_fitness = max(fitness)
-    # If max == min, zero-division error will occur
-    if max_fitness > min_fitness:
-        processed_fitness = tuple(
-            (f - min_fitness) / (max_fitness - min_fitness) for f in fitness
-        )
+    processed_fitness = tuple(exp(f) for f in fitness)
 
     # Percentage of all individuals by fitness
     sum_fitness: float = sum(processed_fitness)
