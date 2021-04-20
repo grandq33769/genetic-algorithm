@@ -1,6 +1,7 @@
 # Standard Library
 from dataclasses import dataclass, field
-from typing import Sequence, Union
+from random import randint
+from typing import List, Sequence, Tuple, Union
 
 # Third Party Library
 from loguru import logger
@@ -49,8 +50,8 @@ class GeneOperator:
     def crossover(self, first, second, idx):
         pass
 
-    def mutation(self, target, idx):
-        pass
+    def mutation(self, target, idx) -> Tuple:
+        return (self, target, idx)
 
     def valid_gene(self, gene: Union[str, tuple]) -> bool:
         phenotype = self.decode(gene)
@@ -69,3 +70,12 @@ class GeneOperator:
                 f'only can decode the gene with "{self.length}" long.'
             )
         return valid
+
+    def generate_neighbor(self, target, num_of_neighbors: int) -> List:
+        neighbors: List = []
+        while len(neighbors) != num_of_neighbors:
+            neighbor_idx = randint(0, self.length - 1)
+            neighbor = self.mutation(target, neighbor_idx)
+            if self.valid_gene(neighbor):
+                neighbors.append(neighbor)
+        return neighbors
