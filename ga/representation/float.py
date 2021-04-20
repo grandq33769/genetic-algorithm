@@ -43,7 +43,9 @@ class FloatGeneOperator(GeneOperator):
 
     def mutation(self, target: tuple, idx: int):
         repre = self.representations[idx]
-        random_float = uniform(repre.min_value, repre.max_value)
+        target_dna = target[idx]
+        steps = (repre.max_value - repre.min_value)/10
+        random_float = uniform(target_dna - steps, target_dna + steps)
         mutated_dna = tuple([round(random_float, repre.decimal)])
         mutated_target = target[:idx] + mutated_dna + target[idx + 1 :]
         return mutated_target
