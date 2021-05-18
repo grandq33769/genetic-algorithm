@@ -33,6 +33,12 @@ class SAsetting(HillClimbingSetting):
 
 
 @dataclass
+class NichingSetting(GAsetting):
+    restrict_distance: float
+    power: float
+
+
+@dataclass
 class GAconfig:
     setting: GAsetting
     initialize: Callable
@@ -51,3 +57,8 @@ class HillClimbingConfig(GAconfig):
 @dataclass
 class SAconfig(GAconfig):
     setting: SAsetting
+
+
+@dataclass
+class NichingConfig(GAconfig):
+    setting: NichingSetting
