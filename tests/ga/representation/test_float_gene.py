@@ -35,9 +35,12 @@ def test_crossover():
 def test_mutation():
     gene = (0.3567, 0.2257)
 
-    subject = SUBJECT.mutation(gene, 0)
-    assert isinstance(subject, tuple)
-    assert isinstance(subject[0], float)
+    for _ in range(10):
+        subject = SUBJECT.mutation(gene, 0)
+        assert isinstance(subject, tuple)
+        assert isinstance(subject[0], float)
+        assert subject[0] != gene[0]
+        assert subject[1] != gene[1]
 
 
 def test_valid_by_gene():

@@ -54,5 +54,5 @@ class FloatGeneOperator(GeneOperator):
 
         mutated_target = target
         for i, _ in enumerate(target):
-            mutated_target = self._mutation(target, i)
+            mutated_target = self._mutation(mutated_target, i)
         return mutated_target
