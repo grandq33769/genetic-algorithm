@@ -54,7 +54,8 @@ class BinaryGeneOperator(GeneOperator):
 
     def encode(self, phenotype: Union[tuple, list]) -> str:
         gene = ''
-        if phenotype_len := len(phenotype) != self.repre_len:
+        phenotype_len = len(phenotype)
+        if phenotype_len != self.repre_len:
             logger.warning(
                 f'The length of phenotype is "{phenotype_len}" ',
                 'but the generator ',
@@ -70,7 +71,8 @@ class BinaryGeneOperator(GeneOperator):
     def decode(self, gene: str) -> tuple:
         phenotype: List[Union[int, float]] = list()
         un_decoded = gene
-        if gene_len := len(gene) != self.length:
+        gene_len = len(gene)
+        if gene_len != self.length:
             logger.warning(
                 f'The length of gene is "{gene_len}" but the generator '
                 f'only can decode the gene with "{self.length}" long.'
