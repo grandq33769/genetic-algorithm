@@ -38,7 +38,6 @@ def test_mutation():
     subject = SUBJECT.mutation(gene, 0)
     assert isinstance(subject, tuple)
     assert isinstance(subject[0], float)
-    assert subject[1] == 0.2257
 
 
 def test_valid_by_gene():

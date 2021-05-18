@@ -7,8 +7,18 @@ from typing import Callable, List, Tuple
 from loguru import logger as log
 
 # Local Module
-from ga.config import HillClimbingSetting
+from ga.config import GAsetting, HillClimbingSetting
 from ga.evaluation.basic import basic_evaluation
+
+
+def get_strongest(
+    population: Tuple, setting: GAsetting, obj_func: Callable
+) -> Tuple[Tuple, int]:
+    new_fit = basic_evaluation(population, setting, obj_func)
+    new_max_value = max(new_fit)
+    new_strongest = population[new_fit.index(new_max_value)]
+
+    return new_strongest, new_max_value
 
 
 def select_neighbor_from_target(

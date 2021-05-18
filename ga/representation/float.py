@@ -41,11 +41,18 @@ class FloatGeneOperator(GeneOperator):
 
         return cross_first, cross_second
 
-    def mutation(self, target: tuple, idx: int):
+    def _mutation(self, target: tuple, idx: int):
         repre = self.representations[idx]
         target_value = target[idx]
         step = (repre.max_value - repre.min_value) / 10
         random_float = uniform(target_value - step, target_value + step)
         mutated_dna = tuple([round(random_float, repre.decimal)])
         mutated_target = target[:idx] + mutated_dna + target[idx + 1 :]
+        return mutated_target
+
+    def mutation(self, target: tuple, idx: int):
+
+        mutated_target = target
+        for i, _ in enumerate(target):
+            mutated_target = self._mutation(target, i)
         return mutated_target
