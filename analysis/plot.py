@@ -13,13 +13,16 @@ COLOR = [
     ('rgb(231,107,243)', 'rgba(231,107,243,0.3)'),
 ]
 
+EPISODE = 50
+SHOW_ROUND = 50
+
 
 def line_chart(path, title):
     rand_idx = randint(0, len(COLOR) - 1)
     line_color, fill_color = COLOR[rand_idx]
 
     aggregated_df = pd.DataFrame()
-    for x in range(1, 60):
+    for x in range(1, EPISODE):
         df = pd.read_csv(f'{path}/{x}.csv', header=None)
         aggregated_df[str(x)] = df.mean(axis=1)
         # lines.append(go.Scatter(
@@ -32,7 +35,7 @@ def line_chart(path, title):
     aggregated_df['round'] = np.arange(len(aggregated_df))
     logger.debug(aggregated_df)
 
-    df = aggregated_df.head(30)
+    df = aggregated_df.head(SHOW_ROUND)
 
     return [
         go.Scatter(
@@ -98,26 +101,26 @@ def dot_plot(title, filename, gen_num, step=1):
 
 
 if __name__ == '__main__':
-    # lines = []
-    # title = 'ga_float_min'
-    # path = f'./performance/test_{title}/fitnesses'
-    # lines.extend(line_chart(path, title))
+    lines = []
+    ga_title = 'annealling_float_min'
+    ga_path = f'./performance/test_{ga_title}/fitnesses'
+    lines.extend(line_chart(ga_path, ga_title))
 
-    # title = 'hillclimbing_float_min'
-    # path = f'./performance/test_{title}/fitnesses'
-    # lines.extend(line_chart(path, title))
+    ga_title = 'ga_float_min'
+    ga_path = f'./performance/test_{ga_title}/fitnesses'
+    lines.extend(line_chart(ga_path, ga_title))
 
-    # title = 'annealling_float_min'
-    # path = f'./performance/test_{title}/fitnesses'
-    # lines.extend(line_chart(path, title))
+    ga_title = 'hillclimbing_float_min'
+    ga_path = f'./performance/test_{ga_title}/fitnesses'
+    lines.extend(line_chart(ga_path, ga_title))
 
-    # fig = go.Figure(lines)
-    # fig.update_layout(
-    #     yaxis_title='obj_func (x1,x2)',
-    #     title="Convergence Performance (Min)",
-    #     hovermode="x",
-    # )
-    # fig.show()
+    ga_fig = go.Figure(lines)
+    ga_fig.update_layout(
+        yaxis_title='obj_func (x1,x2)',
+        title="Convergence Performance (Min)",
+        hovermode="x",
+    )
+    ga_fig.show()
 
     targets = [
         ('annealling_float_min', '16.csv', 20),
