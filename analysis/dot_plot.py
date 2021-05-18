@@ -17,7 +17,7 @@ def dot_plot(title, filename, gen_num, step=1):
         fig.add_trace(
             go.Scatter(
                 x=x1.loc[x],
-                y=x2.loc[x + 1],
+                y=x2.loc[x],
                 mode="markers",
                 marker=dict(size=12),
                 name=f"Gen {x}",
@@ -26,8 +26,8 @@ def dot_plot(title, filename, gen_num, step=1):
 
     fig.update_layout(
         title=title,
-        xaxis_title="x1",
-        yaxis_title="x2",
+        xaxis_title="x",
+        yaxis_title="y",
     )
 
     fig.show()
@@ -35,9 +35,11 @@ def dot_plot(title, filename, gen_num, step=1):
 
 if __name__ == '__main__':
     targets = [
-        ('annealling_float_min', '16.csv', 30),
-        ('hillclimbing_float_min', '60.csv', 30),
-        ('ga_float_min', '30.csv', 30),
+        # ('annealling_float_min', '16.csv', 30),
+        # ('hillclimbing_float_min', '60.csv', 30),
+        # ('ga_float_min', '30.csv', 30),
+        ('niching_float_max_pow15', f'{x+1}.csv', 100, 10)
+        for x in range(20)
     ]
 
     for t in targets:
