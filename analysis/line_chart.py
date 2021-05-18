@@ -1,6 +1,3 @@
-# Standard Library
-from random import randint
-
 # Third Party Library
 import numpy as np
 import pandas as pd
@@ -11,15 +8,15 @@ COLOR = [
     ('rgb(0,100,80)', 'rgba(0,100,80,0.3)'),
     ('rgb(0,176,246)', 'rgba(0,176,246,0.3)'),
     ('rgb(231,107,243)', 'rgba(231,107,243,0.3)'),
+    ('rgb(0,0,0)', 'rgba(0,0,0,0.3)'),
 ]
 
 TOTAL = 60
-ROUND = 100
+ROUND = 30
 
 
-def line_chart(path, title):
-    rand_idx = randint(0, len(COLOR) - 1)
-    line_color, fill_color = COLOR[rand_idx]
+def line_chart(path, title, color_idx):
+    line_color, fill_color = COLOR[color_idx]
 
     aggregated_df = pd.DataFrame()
     for x in range(1, TOTAL):
@@ -73,17 +70,21 @@ def line_chart(path, title):
 
 if __name__ == '__main__':
     lines = []
-    alg_title = 'ga_float_min'
+    alg_title = 'ga_float_min_m1'
     data_path = f'./performance/test_{alg_title}/fitnesses'
-    lines.extend(line_chart(data_path, alg_title))
+    lines.extend(line_chart(data_path, alg_title, 0))
 
-    alg_title = 'hillclimbing_float_min'
+    alg_title = 'ga_float_min_m2'
     data_path = f'./performance/test_{alg_title}/fitnesses'
-    lines.extend(line_chart(data_path, alg_title))
+    lines.extend(line_chart(data_path, alg_title, 1))
 
-    alg_title = 'annealling_float_min'
+    alg_title = 'ga_float_min_m4'
     data_path = f'./performance/test_{alg_title}/fitnesses'
-    lines.extend(line_chart(data_path, alg_title))
+    lines.extend(line_chart(data_path, alg_title, 2))
+
+    alg_title = 'ga_float_min_m8'
+    data_path = f'./performance/test_{alg_title}/fitnesses'
+    lines.extend(line_chart(data_path, alg_title, 3))
 
     fig = go.Figure(lines)
     fig.update_layout(
