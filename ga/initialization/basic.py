@@ -1,6 +1,5 @@
 # Standard Library
 from operator import attrgetter
-from random import randint
 from typing import List, Tuple
 
 # Local Module
@@ -21,11 +20,8 @@ def init_by_neighbors(setting: HillClimbingSetting) -> List[Tuple]:
     population: List = []
     target = operator.generate()
     setting.target = target
-    while len(population) != pop_size:
-        neighbor_idx = randint(0, operator.length - 1)
-        neighbor = operator.mutation(target, neighbor_idx)
-        if operator.valid_gene(neighbor):
-            population.append(neighbor)
+
+    population = operator.generate_neighbor(target, pop_size)
     populations.append(tuple(population))
     return populations
 
