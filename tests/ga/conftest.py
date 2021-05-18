@@ -83,17 +83,18 @@ def sa_setting_float():
     )
 
 
-def niching_setting_float():
+@pytest.fixture()
+def niching_float_setting():
     yield NichingSetting(
-        pop_size=30,
+        pop_size=100,
         crossover_rate=0.3,
         mutation_rate=0.01,
-        gene_operator=(
+        gene_operator=FloatGeneOperator(
             [
                 FloatRepresentation(-0.5, 1.5, 3),
                 FloatRepresentation(-0.5, 1.5, 3),
             ]
         ),
-        restrict_distance=0.5,
-        power=2,
+        restrict_distance=2,
+        power=15,
     )
