@@ -15,9 +15,11 @@ def test_hillclimbing_float_min(hc_setting_float, file_logger):
     is_terminated = lambda *args: is_terminated_by_generation(
         *args, terminated_gen=100
     )
+
     evaluation = lambda *args: hc_evaluation(
         *args, obj_func=lambda *x: -obj_func(*x)
     )
+
     selection = lambda *args: select_neighbor_from_target(
         *args, obj_func=lambda *x: -obj_func(*x)
     )
